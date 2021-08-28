@@ -5,5 +5,6 @@ cat >/tmp/post-build-hook.sh <<EOF
 set -eu
 set -f
 
-CACHIX_AUTH_TOKEN="$3" "$1" push "$2" \$OUT_PATHS
+env
+echo "\$OUT_PATHS" | "$1" -c /home/runner/.config/cachix/cachix.dhall push "$2"
 EOF

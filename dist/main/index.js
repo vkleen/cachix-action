@@ -1074,7 +1074,7 @@ function setup() {
             }
             // Remember existing store paths
             yield exec.exec("sh", ["-c", `${__dirname}/list-nix-store.sh > /tmp/store-path-pre-build`]);
-            yield exec.exec(`${__dirname}/install-build-hook.sh`, [cachixExecutable, name, authToken]);
+            yield exec.exec(`${__dirname}/install-build-hook.sh`, [cachixExecutable, name]);
         }
         catch (error) {
             core.setFailed(`Action failed with error: ${error}`);

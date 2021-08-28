@@ -48,7 +48,7 @@ async function setup() {
     }
     // Remember existing store paths
     await exec.exec("sh", ["-c", `${__dirname}/list-nix-store.sh > /tmp/store-path-pre-build`]);
-    await exec.exec(`${__dirname}/install-build-hook.sh`, [cachixExecutable, name, authToken]);
+    await exec.exec(`${__dirname}/install-build-hook.sh`, [cachixExecutable, name]);
   } catch (error) {
     core.setFailed(`Action failed with error: ${error}`);
   }
