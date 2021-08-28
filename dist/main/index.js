@@ -1035,6 +1035,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
 const coreCommand = __importStar(__webpack_require__(431));
 const exec = __importStar(__webpack_require__(986));
+const fs = __webpack_require__(747);
 exports.IsPost = !!process.env['STATE_isPost'];
 // inputs
 const name = core.getInput('name', { required: true });
@@ -1074,6 +1075,8 @@ function setup() {
             // Remember existing store paths
             yield exec.exec("sh", ["-c", `${__dirname}/list-nix-store.sh > /tmp/store-path-pre-build`]);
             yield exec.exec(`${__dirname}/install-build-hook.sh`, [cachixExecutable, name]);
+            const postBuildHook = fs.readFileSync("/tmp/post-build-hook.sh", 'utf8');
+            console.log(postBuildHook);
         }
         catch (error) {
             core.setFailed(`Action failed with error: ${error}`);

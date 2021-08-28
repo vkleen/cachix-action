@@ -2,6 +2,8 @@ import * as core from '@actions/core';
 import * as coreCommand from '@actions/core/lib/command'
 import * as exec from '@actions/exec';
 
+const fs = require("fs");
+
 export const IsPost = !!process.env['STATE_isPost']
 
 // inputs
@@ -47,6 +49,8 @@ async function setup() {
     // Remember existing store paths
     await exec.exec("sh", ["-c", `${__dirname}/list-nix-store.sh > /tmp/store-path-pre-build`]);
     await exec.exec(`${__dirname}/install-build-hook.sh`, [cachixExecutable, name]);
+    const postBuildHook = fs.readFileSync("/tmp/post-build-hook.sh", 'utf8');
+    console.log(postBuildHook);
   } catch (error) {
     core.setFailed(`Action failed with error: ${error}`);
   }
